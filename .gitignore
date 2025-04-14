@@ -1,0 +1,22 @@
+# Archivos temporales de editores
+*.swp
+*.tmp
+*~
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos ejecutables
+*.out
+*.exe
+
+# Música 
+# music/
+
+# Archivos personales 
+*.bak
+*.old
+
+# VS Code settings (por si acaso)
+.vscode/
