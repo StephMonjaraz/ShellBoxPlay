@@ -16,7 +16,7 @@
 # ---------------------------- Variables ----------------------------  #
 # Entrada: Comando que da el usuario -> user_command
 # Salida: Se ejecuta el script o se muestra un mensaje de error para comando 
-# inválidos.  -> execute
+# inválidos.  -> ./modules/script.sh
 # Variable: algo que nos diga si el usuario quiere salir, o se mantiene el bucle.
 # -> awake tambien una variable que nos diga que usario es, usare whoami -> current_usser
 
@@ -35,17 +35,29 @@ echo
 }
 
 show_prompt() {
-echo -n -e "\033[1;35mTerminal. \033[0m"
+#\033[38 durazno
+echo -n -e "\033[38;5;216m ShellBoxPlay > \033[0m"
+#echo -n -e "\033[1;35m ShelBoxPlay > 38;5;216"
 #echo -n -e "ShellBoxPlay > "
 read user_command
 }
 
-
+# ---------------------------- Selección de comandos.  ----------------------------  #
 process_command(){
+
+# ---------------------------- CASE  ----------------------------  #
 case $user_command in
 
-fecha)
-./modules/fecha_hora.sh
+time)
+./modules/hora.sh
+;;
+
+date)
+./modules/fecha.sh
+;;
+
+infosis)
+./modules/infosys.sh
 ;;
 
 salir)
@@ -84,6 +96,7 @@ while [ "$awake" = true ];
 do
 show_prompt         
 process_command
+echo
 done
 }
 

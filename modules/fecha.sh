@@ -1,20 +1,15 @@
 #!/bin/bash
 #shebang
 
-#3.- Comando que pueda dar la fecha y la hora
+#3.- Comando que pueda dar la fecha.
 
 # ---------------------------- Variables ----------------------------  #
-# Entrada: Comando que corresponde a fecha y hora
-# Salida: Fecha y hora.
+# Entrada: Comando que corresponde a fecha.
+# Salida: Fecha.
 
 date=$(date +"%A, %d de %B de %Y")
-tim=$(date +"%T")
 
 # ---------------------------- Funciones  ----------------------------  #
-
-get_time(){
-echo $tim
-}
 
 get_date(){
 echo $date
@@ -23,7 +18,6 @@ echo $date
 # ---------------------------- main  ----------------------------  #
 main(){
 get_date
-get_time
 }
 
 main
