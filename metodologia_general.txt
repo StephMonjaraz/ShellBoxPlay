@@ -1,0 +1,107 @@
+----------------------------------------
+🧠 METODOLOGÍA GENERAL PARA NUESTROS PROGRAMAS SCRIPT BASH.
+
+PASOS A SEGUIR:
+
+--------------------------------------------------------------------------------------------
+                                  1. PLANTEAMIENTO DEL PROBLEMA
+--------------------------------------------------------------------------------------------
+Antes de escribir código, responderemos las siguientes preguntas:
+- ¿Qué problema quiero resolver con el script?
+- ¿Cuál es el comportamiento esperado?
+- ¿Qué datos necesito que el usuario proporcione?
+- ¿Qué salidas o resultados debe mostrar el script?
+
+Ejemplo:
+Simularemos un sistema de autenticación para poder verificar que el usuario y contraseña son los correctos, para la simulación haremos un archivo de texto y ahí guardaremos las credenciales.
+
+---------------------------------------------------------------------------------------------
+                                 2. DEFINIR ENTRADAS Y SALIDAS
+---------------------------------------------------------------------------------------------
+Especifica:
+- ¿Qué datos debe pedir el script al usuario (entrada)?
+- ¿Cómo y dónde se almacenarán esos datos necesarios?
+- ¿Qué mostrará el script en pantalla (salida)?
+
+Ejemplo:
+Entrada: nombre de usuario y contraseña.
+Salida: mensaje de acceso concedido o denegado.
+
+--------------------------------------------------------------------------------------------
+                                3. IDENTIFICACIÓN DE VARIABLES
+--------------------------------------------------------------------------------------------
+Pensemos en que variables necesitaremos, también, el tiempo que las usaremos:
+- ¿Qué valores debes guardar temporalmente?
+- ¿Hay límites, como número de intentos?
+
+Ejemplo:
+- user_input
+- password_input
+- remaining_attempts
+- user_file
+
+---------------------------------------------------------------------------------------------
+                             4. DISEÑAR LA ESTRUCTURA DEL SCRIPT
+---------------------------------------------------------------------------------------------
+Dividiremos el script en bloques de lógica:
+- Inicio (mensaje de bienvenida)
+- Entrada de datos
+- Comparación y validación
+- Resultados (éxito o error)
+- Registro/log (opcional)
+
+Sugiero empezar como un esquema o lista, sin código todavía.
+
+---------------------------------------------------------------------------------------------
+                             5. DISEÑAR LAS FUNCIONES (si aplica)
+---------------------------------------------------------------------------------------------
+Agruparemos bloques de lógica en funciones que podemos usar a lo largo del script:
+read_user_data()
+validate_credentials()
+display_success_message()
+display_error_message()
+log_user_login()
+
+---------------------------------------------------------------------------------------------
+                            6. DISEÑAR EL FLUJO PRINCIPAL (main)
+---------------------------------------------------------------------------------------------
+Definiremos el orden en que se deben ejecutar todas las partes:
+- Mostrar bienvenida.
+- Mientras queden intentos:
+   - Leer datos.
+   - Validar credenciales.
+   - Mostrar mensajes según el resultado.
+- Finalizar si se acaban los intentos.
+
+---------------------------------------------------------------------------------------------
+                                7. VERIFICACIÓN Y PRUEBAS
+---------------------------------------------------------------------------------------------
+Antes de automatizar, pensemos si:
+- ¿Tu lógica considera errores del usuario?
+- ¿Qué pasa si deja un campo vacío?
+- ¿Qué ocurre si el archivo de usuarios no existe?
+
+Propongo hacer un esquema de prueba antes de que escribamos el código.
+
+---------------------------------------------------------------------------------------------
+                                   8. IMPLEMENTAR EL CÓDIGO
+---------------------------------------------------------------------------------------------
+Lo haremos paso por paso, validando cada bloque antes de seguir con el siguiente.
+
+---------------------------------------------------------------------------------------------
+                              9. COMENTARIOS Y DOCUMENTACIÓN
+---------------------------------------------------------------------------------------------
+Agregaremos comentarios explicativos:
+- Al inicio del archivo (qué hace el script).
+- Antes de cada bloque importante.
+
+---------------------------------------------------------------------------------------------
+                               10. REVISIÓN FINAL Y AJUSTES
+---------------------------------------------------------------------------------------------
+- Ejecutamos el script varias veces con distintos datos.
+- Revisamos que los mensajes se vean bien y su diseño.
+- Verificaremos que las condiciones de error están bien controladas.
+- Asegúrate de que tenga permiso (chmod +x)
+
+
+

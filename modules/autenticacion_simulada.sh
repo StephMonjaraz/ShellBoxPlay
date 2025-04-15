@@ -9,7 +9,7 @@
 max_attempts=3 
 attempts=0 #inicializamos el contador de intentos
 credentials_file="$(dirname "$0")/credenciales.txt" #formato: usuario:contraseña
-
+                                                    #dirname "$0" obtiene la ruta del script actual.
 #Con la condición verificamos si el archivo existe.
 if [ ! -f "$credentials_file" ]; then # ! niega la condición.
     echo "⛔ Error: Archivo de credenciales no encontrado ($credentials_file)."
@@ -56,6 +56,7 @@ while [ $attempts -lt $max_attempts ]; do #Mientras los intentos sean menores al
 
     #para la autenticación.
     if grep -q "^$entered_username:$entered_password$" "$credentials_file"; then # -q significa silencioso, no muestra la salida.
+        #grep busca la cadena en el archivo de credenciales. grep significa "Global Regular Expression Print".
         echo
         echo "✅ Autenticación exitosa. Bienvenido, $entered_username."
         export ACTIVE_USER="$entered_username" #exporta la variable para que podamos usarla en otros scripts.
