@@ -48,19 +48,25 @@ process_command(){
 # ---------------------------- CASE  ----------------------------  #
 case $user_command in
 
-time)
+time) #hora
 ./modules/hora.sh
 ;;
 
-date)
+date) #fecha
 ./modules/fecha.sh
 ;;
 
-infosis)
+infosis) #informacion del sistema
 ./modules/infosys.sh
 ;;
 
-salir)
+cercatrova) #buscar archivo
+#cercatrova es temporal ;)
+./modules/buscar_archivo.sh
+;;
+
+
+salir) #salida del sistema
 echo "👾 🎀 Gracias $current_user por elegir ShellBoxPlay. 👾 🎀"
 awake=false
 ;;
