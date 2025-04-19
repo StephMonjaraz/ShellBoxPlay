@@ -56,6 +56,12 @@ date) #fecha
 ./modules/fecha.sh
 ;;
 
+datetime) #fecha y hora
+fecha=$(./modules/fecha.sh)
+hora=$(./modules/hora.sh)
+echo "Estamos a: $fecha y son las: $hora"
+;;
+
 infosis) #informacion del sistema
 ./modules/infosys.sh
 ;;
@@ -65,6 +71,9 @@ cercatrova) #buscar archivo
 ./modules/buscar_archivo.sh
 ;;
 
+juego) #gato
+./modules/juego.sh
+;;
 
 salir) #salida del sistema
 echo "👾 🎀 Gracias $current_user por elegir ShellBoxPlay. 👾 🎀"
@@ -86,14 +95,7 @@ clear_screen(){
 clear
 }
 
-# ---------------------------- Flujo  ----------------------------  #
-
-#1 debe enviar un mensaje de bienvenda.
-#2 leer el comando del usuario
-#3 si es algo diferente a salir, puede continuar el flujo
-     #si es salir envia mensaje de error.
-#4 repite el ciclo siempre que no lea el comando salir
-
+# ---------------------------- Main  ----------------------------  #
 
 main() { #mientras el usaurio no escriba salr, el bucle continua.
 awake=true

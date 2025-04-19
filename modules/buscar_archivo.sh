@@ -14,31 +14,35 @@
 # Salida: Se ejecuta el script y se indica que se encontró el archivo en la carpetao  se muestra un mensaje de que no se encontró la carpeta
 
 
-# ---------------------------- Funciones  ----------------------------  #
+# ---------------------------- Fase 2 ----------------------------  #
 
-
-search_file(){
+# pide los datos al usuario
 echo -n -e "\033[38;5;159m ¿Qué archivo estas buscando? > \033[0m"
 read filename
 echo -n -e "\033[38;5;159m ¿En que carpeta quieres buscarlo? > \033[0m"
 read folder
 echo
-}
 
+# ¿Esta en la carpeta?
 #find /home/stephanie-blue/Ingenieria/JessiStudies/librosPROGRA -name "HEADFIRST.pdf
-is_it_there(){
-result=$(find "$folder" -name "$filename" 2>/dev/null) #2>/dev/null para ocultar errores.
-if [ -n "$result" ]; then #-n para ver que no este vacia.
-echo "Se encontró el archivo en: $folder"
-else
-echo "Lo sentimos, no se encontró el archivo en la carpeta."
-fi
-}
 
+    if [ -d "$folder" ]; then #-d verifica si es un directorio
+        found="false" # por si acaso
+        #para cada archivo en el folder
+        for file in "$folder"/*; do # el /* significa que busque en la carpeta
+            if [ "$(basename "$file")" = "$filename" ]; then
+                echo "Encontramos el archivo $filename en la carpeta $folder"
+                found="true"
+                break
+            fi
+        done
 
-main(){
-search_file
-is_it_there
-}
-main
+        if [ "$found" != "true" ]; then
+            echo "Lo sentimos, no se encontró el archivo en la carpeta."
+        fi
+    else
+        echo "La carpeta no existe."
+    fi
+    
+
 
