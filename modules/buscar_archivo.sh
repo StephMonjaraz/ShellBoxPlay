@@ -1,48 +1,38 @@
 #!/bin/bash
+# shebang
 
-##### Comando que pueda buscar por un archivo en un directorio específico recibe dosparámetros: La carpeta a buscar 
-#     y el archivo que va a buscar.
+# Este script proporciona una implementación en Bash puro para buscar un archivo específico 
+# dentro de un directorio dado. Evita el uso de comandos externos y se basa únicamente 
+# en las características integradas de Bash.
+# El script solicita al usuario el nombre del archivo y el directorio donde desea buscar.
 
-#¿Qué problema quieres resolver con el script? Poder buscar un archivo en un directorio.
-#¿Cuál es el comportamiento esperado del script? Indicar si es que el archivo fue o no fue encontrado.
-#¿Qué información necesita el usuario proporcionar? necesita proporcionar el comando, después indicará en que carpeta buscar el archivo
-#                                                   y cual es el archivo que esta buscando.
-#¿Qué debe mostrar el script como resultado? El archivo o en caso contrario, indicar que no se encontró.
-
-# ---------------------------- Variables ----------------------------  #
-# Entrada: archivo que desea buscar -> archive y carpta -> file
-# Salida: Se ejecuta el script y se indica que se encontró el archivo en la carpetao  se muestra un mensaje de que no se encontró la carpeta
-
-
-# ---------------------------- Fase 2 ----------------------------  #
-
-# pide los datos al usuario
-echo -n -e "\033[38;5;159m ¿Qué archivo estas buscando? > \033[0m"
+# Solicita al usuario el nombre del archivo
+printf "\033[38;5;159m ¿Qué archivo estás buscando? > \033[0m"
 read filename
-echo -n -e "\033[38;5;159m ¿En que carpeta quieres buscarlo? > \033[0m"
+
+# Solicita al usuario el nombre de la carpeta
+printf "\033[38;5;159m ¿En qué carpeta quieres buscar? > \033[0m"
 read folder
-echo
+printf "\n"
 
-# ¿Esta en la carpeta?
-#find /home/stephanie-blue/Ingenieria/JessiStudies/librosPROGRA -name "HEADFIRST.pdf
-
-    if [ -d "$folder" ]; then #-d verifica si es un directorio
-        found="false" # por si acaso
-        #para cada archivo en el folder
-        for file in "$folder"/*; do # el /* significa que busque en la carpeta
-            if [ "$(basename "$file")" = "$filename" ]; then
-                echo "Encontramos el archivo $filename en la carpeta $folder"
-                found="true"
-                break
-            fi
-        done
-
-        if [ "$found" != "true" ]; then
-            echo "Lo sentimos, no se encontró el archivo en la carpeta."
+# Verifica si la carpeta existe
+if [[ -d "$folder" ]]; then
+    found=false
+    # Itera sobre los archivos en la carpeta
+    for file in "$folder"/*; do
+        # Compara el nombre base del archivo con el nombre proporcionado
+        if [[ "${file##*/}" == "$filename" ]]; then
+            printf "✅ Archivo '%s' encontrado en la carpeta '%s'\n" "$filename" "$folder"
+            found=true
+            break
         fi
-    else
-        echo "La carpeta no existe."
+    done
+
+    # Si no se encontró el archivo
+    if [[ "$found" != true ]]; then
+        printf "❌ Lo sentimos, no se encontró el archivo en la carpeta.\n"
     fi
-    
-
-
+else
+    # Si la carpeta no existe
+    printf "🚫 La carpeta especificada no existe.\n"
+fi
