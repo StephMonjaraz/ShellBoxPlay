@@ -1,111 +1,110 @@
 #!/bin/bash
 #shebang
 
-# ShellBoxPlay - Sistema Modular de la terminal simulada.
-#Prueba 1.
+# ShellBoxPlay - Sistema central de terminal interactiva en Bash puro
+# Este script proporciona un sistema modular que permite a los usuarios interactuar con diferentes
+# funcionalidades mediante comandos específicos. 
+# El objetivo es ofrecer una experiencia interactiva y clara, donde cada comando ejecuta un módulo
+# correspondiente o permite al usuario ejecutar comandos del sistema.
+# Los mensajes y el menú se muestran utilizando códigos de escape ANSI para un formato visual atractivo.
 
-# 👾 🎀 Script principal de ShellBoxPlay 👾 🎀
-
-
-#¿Qué problema quieres resolver con shellboxplay.sh? Quiero tener un sistema central que funcione como el núcleo de mi terminal, que controle a los modulos individuales.
-#¿Cuál es el comportamiento esperado del script? Ser una terminal personalizada que tenga un prompt interactivo, para que el  usuario escriba comandos y se ejecute el script correspondiente si el comando es válido.
-#¿Qué datos necesitas que el usuario proporcione durante la ejecución? Necesito que indique lo que quiera hacer mediante comandos.
-#¿Qué salidas o resultados debe mostrar el script? El resultado del módulo ejecutado, o un mensaje de error si el comando no existe. Además, debe mantenerse activo hasta que el usuario escriba salir.
+current_user="$USER"
 
 
-# ---------------------------- Variables ----------------------------  #
-# Entrada: Comando que da el usuario -> user_command
-# Salida: Se ejecuta el script o se muestra un mensaje de error para comando 
-# inválidos.  -> ./modules/script.sh
-# Variable: algo que nos diga si el usuario quiere salir, o se mantiene el bucle.
-# -> awake tambien una variable que nos diga que usario es, usare whoami -> current_usser
-
-#awake=true
-current_user=$(whoami)
-
-# ---------------------------- Funciones  ----------------------------  #
 show_welcome() {
-#echo "👾 🎀 Hola, Bienvenidx $current_user a la terminal. 👾 🎀"
-#prueba de color, rosa
-echo -e "\033[1;35m 👾 🎀 Hola, Bienvenidx $current_user a ShellBoxPlay. 👾 🎀\033[0m"
-echo
-echo -e "\033[1;35m 🍭 ¿Qúe deseas hacer hoy?. 🍭\033[0m"
-echo
-
+    #mensaje de bienvenida al usuario
+    printf "\033[1;35m 👾 🎀 Hola, Bienvenidx %s a ShellBoxPlay. 👾 🎀\033[0m\n" "$current_user"
+    printf "\n"
+    printf "\033[1;35m 🍭 ¿Qué deseas hacer hoy?. 🍭\033[0m\n"
+    printf "\n"
 }
+
 
 show_prompt() {
-#\033[38 durazno
-echo -n -e "\033[38;5;216m ShellBoxPlay > \033[0m"
-#echo -n -e "\033[1;35m ShelBoxPlay > 38;5;216"
-#echo -n -e "ShellBoxPlay > "
-read user_command
+    #prompt interactivo para que el usuario ingrese comandos
+    printf "\033[38;5;216m %s:%s > \033[0m " "$current_user" "$PWD"
+    read user_command
 }
 
-# ---------------------------- Selección de comandos.  ----------------------------  #
-process_command(){
+process_command() {
+    # comandos para elección.
+    case "$user_command" in
+        hora)
+            ./modules/hora.sh
+            ;;
 
-# ---------------------------- CASE  ----------------------------  #
-case $user_command in
 
-time) #hora
-./modules/hora.sh
-;;
+        fecha)
+            ./modules/fecha.sh
+            ;;
 
-date) #fecha
-./modules/fecha.sh
-;;
+        fechahora)
+            fecha=$(./modules/fecha.sh)
+            hora=$(./modules/hora.sh)
+            printf "Estamos a: %s y son las: %s\n" "$fecha" "$hora"
+            ;;
 
-datetime) #fecha y hora
-fecha=$(./modules/fecha.sh)
-hora=$(./modules/hora.sh)
-echo "Estamos a: $fecha y son las: $hora"
-;;
+        infosis)
+            ./modules/infosys.sh
+            ;;
 
-infosis) #informacion del sistema
-./modules/infosys.sh
-;;
 
-cercatrova) #buscar archivo
-#cercatrova es temporal ;)
-./modules/buscar_archivo.sh
-;;
+        buscar)
+            ./modules/buscar_archivo.sh
+            ;;
 
-juego) #gato
-./modules/juego.sh
-;;
+        juego)
+            ./modules/juego.sh
+            ;;
 
-salir) #salida del sistema
-echo "👾 🎀 Gracias $current_user por elegir ShellBoxPlay. 👾 🎀"
-awake=false
-;;
+        ayuda)
+            ./modules/ayuda.sh
+            ;;
 
-*) # sería como decir "ninguno de los anteriores"
-echo "No reconocemos el comando '$user_command'. "
-echo
-echo "👾 🎀 Por favor, intente nuevamente. 👾 🎀"
-;;
+        creditos)
+            ./modules/creditos.sh
+            ;;
 
-esac
+        autenticacion)
+            ./modules/autenticacion.sh
+            ;;
+
+        salir)
+            printf "👾 🎀 Gracias %s por elegir ShellBoxPlay. 👾 🎀\n" "$current_user"
+            awake=false
+            exit 0
+            ;;
+
+        *)
+            #comandos del sistema.
+            $user_command 2>/dev/null
+            if [[ $? -ne 0 ]]; then
+                printf "❌ No reconocemos al comando '%s' no es reconocido.\n" "$user_command"
+                printf "👾 🎀 Por favor, intente nuevamente. 👾 🎀\n"
+            fi
+            ;;
+    esac
 }
 
-
-
-clear_screen(){
-clear
+main() {
+    # Bucle principal 
+    awake=true
+    show_welcome
+    while [[ "$awake" == true ]]; do
+        show_prompt
+        process_command
+        printf "\n"
+    done
 }
 
-# ---------------------------- Main  ----------------------------  #
+source ./utils/bloqueo_ctrl.sh
+activar_bloqueos
 
-main() { #mientras el usaurio no escriba salr, el bucle continua.
-awake=true
-show_welcome         
-while [ "$awake" = true ];
-do
-show_prompt         
-process_command
-echo
-done
-}
 
+
+./modules/autenticacion.sh
+if [[ $? -ne 0 ]]; then
+    printf "⛔ Acceso denegado. Cerrando ShellBoxPlay.\n"
+    exit 1
+fi
 main

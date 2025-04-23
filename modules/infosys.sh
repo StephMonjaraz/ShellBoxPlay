@@ -1,65 +1,41 @@
 #!/bin/bash
 #shebang
 
-##### Comando “infosis” que permita mostrar la información del sistema, la información que deberá mostrar será  #####
-#      1. Memoria RAM
-#      2. Arquitectura del sistema
-#      3. Versión del SO.
+# Este script proporciona información del sistema de forma portable y sin comandos externos.
+# Su objetivo es mostrar detalles como la memoria RAM total, la arquitectura del sistema y 
+# la versión del sistema operativo. Todo esto se realiza utilizando únicamente Bash puro y 
+# accediendo directamente a archivos del sistema como /proc/meminfo, /proc/cpuinfo y /etc/os-release.
 
-#¿Qué problema quieres resolver con infosys.sh? Tiene que dar información sobre la memoria RAM, arquitectura del sistema y la version del SO.
-#¿Cuál es el comportamiento esperado del script? Imprimir en pantalla todo el punto anterior.
-#¿Qué información necesita el usuario proporcionar? el comando infosis.
-#¿Qué debe mostrar el script como resultado? la información. 
-
-
-#!/bin/bash
-# Script: infosis.sh
-# Objetivo: Mostrar información del sistema de forma portable y sin comandos externos
-
-# ---------------------------- Fase 2 ----------------------------  #
-
-
-# ---------------------------- Correciones ----------------------------  #
-#No pueden usar comandos que existan de forma predeterminada para usarlos en sus
-#comandos solicitados, por ejemplo, no podrán usar date para para un comando que
-#muestre la fecha y la hora. Ustedes deberán averiguar cómo realizar dicho comando
-#sin hacer uso de otros comandos ya existentes. #
-
-# ------------ MEMORIA RAM ------------
-memoria="No disponible" #en caso de que falle
-# condicion de lectura 
+memoria="No disponible" # En caso de que falle
 if [ -r /proc/meminfo ]; then
-    while IFS= read -r linea; #mientras se pueda leer la linea
-    do 
-        if [[ "$linea" == MemTotal:* ]]; then #si se encuentra la linea que contiene MemTotal
+    while IFS= read -r linea; do
+        if [[ "$linea" == MemTotal:* ]]; then # Si se encuentra la línea que contiene MemTotal
             if [[ "$linea" =~ ([0-9]+) ]]; then
-                kb="${BASH_REMATCH[1]}" #BASH_REMATCH es una variable de bash 
-                                        #que tiene el resultado de la última expresión
+                kb="${BASH_REMATCH[1]}" # Extrae el valor numérico de la memoria
             fi
 
-            if [[ "$kb" =~ ^[0-9]+$ ]]; then # si es un número
-                if [ "$kb" -ge 1048576 ]; then #si es mayor o igual a 1GB (greater equal)
+
+            if [[ "$kb" =~ ^[0-9]+$ ]]; then # Si es un número
+                if [ "$kb" -ge 1048576 ]; then # Si es mayor o igual a 1GB
                     gb=$((kb / 1024 / 1024))
                     memoria="$gb GB"
-                elif [ "$kb" -ge 1024 ]; then #mayor o igual a 1MB 
+                elif [ "$kb" -ge 1024 ]; then # Si es mayor o igual a 1MB
                     mb=$((kb / 1024))
                     memoria="$mb MB"
-                else #mayor a 1MB
+                else
                     mb=$((kb / 1024))
                     memoria="$mb MB"
                 fi
                 break
             fi
         fi
-    done < /proc/meminfo #guarda la ultima linea que cumple la condidion del while
-fi #fin de la condicion de lectura
+    done < /proc/meminfo
+fi
 
-# ------------ ARCH DEL SISTEMA ------------
-arquitectura="No disponible" #por si acaso
 
+arquitectura="No disponible" # Por si acaso
 if [ -r /proc/cpuinfo ]; then
-    while IFS= read -r linea; 
-    do #mientras se pueda leer 
+    while IFS= read -r linea; do
         if [[ "$linea" == flags* ]]; then
             if [[ "$linea" == *" lm "* ]]; then
                 arquitectura="64 bits"
@@ -68,15 +44,14 @@ if [ -r /proc/cpuinfo ]; then
             fi
             break
         fi
-    done < /proc/cpuinfo #guarda la última línea que cumple la condición
+    done < /proc/cpuinfo
 fi
 
-# ------------ VERSIÓN DEL SO ------------
-so="No disponible"
 
+
+so="No disponible"
 if [ -r /etc/os-release ]; then
-    while IFS= read -r linea; 
-    do
+    while IFS= read -r linea; do
         if [[ "$linea" == PRETTY_NAME=* ]]; then
             so=${linea#*=}
             so=${so//\"/}
@@ -87,8 +62,10 @@ elif [ -r /proc/version ]; then
     read -r so < /proc/version
 fi
 
-echo "Información del sistema:"
-echo "------------------------"
-echo "Memoria RAM total        : $memoria"
-echo "Arquitectura del sistema : $arquitectura"
-echo "Versión del SO           : $so"
+
+
+printf "Información del sistema:\n"
+printf "------------------------\n"
+printf "Memoria RAM total        : %s\n" "$memoria"
+printf "Arquitectura del sistema : %s\n" "$arquitectura"
+printf "Versión del SO           : %s\n" "$so"
