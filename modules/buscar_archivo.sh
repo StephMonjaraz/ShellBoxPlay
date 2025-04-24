@@ -16,7 +16,7 @@ read folder
 printf "\n"
 
 # Verifica si la carpeta existe
-if [[ -d "$folder" ]]; then
+if [[ -d "$folder" ]]; then #si existe y es un directorio
     found=false
     # Itera sobre los archivos en la carpeta
     for file in "$folder"/*; do

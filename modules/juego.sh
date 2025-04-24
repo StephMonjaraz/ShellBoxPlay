@@ -5,7 +5,6 @@
 # Dos jugadores (X y O) alternan turnos para llenar un tablero de 3x3.
 # El objetivo es formar una línea horizontal, vertical o diagonal con el mismo símbolo.
 
-# ---------------------------- Funciones auxiliares ---------------------------- #
 
 # Limpia la pantalla de forma Bash pura (ANSI)
 limpiar_pantalla() {
