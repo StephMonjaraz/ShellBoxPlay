@@ -46,7 +46,7 @@ if [ -r /etc/os-release ]; then
     while IFS= read -r linea; do #si puede leer el archivo /etc/os-release
         if [[ "$linea" == PRETTY_NAME=* ]]; then
             so=${linea#*=} # ${variable#patrón} variable con eliminacion de prefijo
-            so=${so//\"/} # Elimina las comillas
+            so=${so//\"/} 
             break
         fi
     done < /etc/os-release

@@ -1,5 +1,4 @@
 #!/bin/bash
-#shebang
 
 # Este script proporciona un sistema de autenticación para ShellBoxPlay. 
 # Solicita al usuario un nombre de usuario del sistema anfitrión y, si es válido, 
@@ -40,35 +39,42 @@ while [ $intentos -le $max_intentos ]; do
                 break
             fi
 
+
         done < /etc/passwd
     fi
 
-    # Evalua combinación
+    # checa combinación
     if [ "$user_exists" = false ]; then
         printf "❌ Usuario '%s' no existe.\n" "$username"
         printf "[sin-fecha] Usuario inexistente: %s (intento %d)\n" "$username" "$intentos" >> "$log_file"
         usuario_validado=false
     else
+
+
         #si el usuario existe, probamos contraseña
         printf "%s\n" "$password" | su "$username" -c "true" >/dev/null 2>&1
 
         if [ $? -eq 0 ]; then
             printf "\n✅ Autenticación exitosa. ¡Bienvenido/a %s!\n" "$username"
             printf "[sin-fecha] Usuario autenticado: %s\n" "$username" >> "$log_file"
+            sleep 1
+            clear
+
             exit 0
+           
 
 
         else
             printf "❌ Contraseña incorrecta para el usuario '%s'.\n" "$username"
             printf "[sin-fecha] Contraseña incorrecta para usuario: %s (intento %d)\n" "$username" "$intentos" >> "$log_file"
-            usuario_validado=true  # El usuario sí existe, no lo volvemos a pedir
+            usuario_validado=true  # El usuario  existe, no se vuelve a a pedir
         fi
     fi
 
     intentos=$((intentos + 1))
     printf "\n"
 done
-# Si se exceden los intentos permitidos
-printf "🚫 Demasiados intentos fallidos. Acceso denegado.\n"
+#si se exceden los intentos permitidos
+printf "Demasiados intentos fallidos. Acceso denegado.\n"
 printf "[sin-fecha] Usuario bloqueado tras %d intentos\n" "$max_intentos" >> "$log_file"
 exit 1
