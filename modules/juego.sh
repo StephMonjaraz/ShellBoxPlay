@@ -6,12 +6,14 @@
 # El objetivo es formar una línea horizontal, vertical o diagonal con el mismo símbolo.
 
 
-# Limpia la pantalla de forma Bash pura (ANSI)
 limpiar_pantalla() {
     printf "\033c"
 }
 
-# Implementa una pausa en Bash puro
+
+
+
+
 pausa() {
     local duracion=$1
     local inicio=$SECONDS
@@ -23,7 +25,10 @@ G1=" " ; G2=" " ; G3=" "
 G4=" " ; G5=" " ; G6=" "
 G7=" " ; G8=" " ; G9=" "
 
-# ---------------------------- Funciones principales ---------------------------- #
+
+
+
+
 
 draw_board() {
     echo
@@ -51,6 +56,8 @@ get_input() {
         echo "Jugador 1, elige tu ficha (X o O): "
         read choice1
 
+
+
         if [[ "$choice1" != "X" && "$choice1" != "O" ]]; then
             echo
             echo "Ingreso una ficha incorrecta. Solo puede elegir entre X o O."
@@ -76,6 +83,7 @@ get_input() {
 make_move() {
     limpiar_pantalla
     draw_board
+
     echo "Jugador $turn, elige una posición (1-9): "
     read move
 
@@ -96,7 +104,9 @@ make_move() {
     fi
 
     case "$move" in
+
         1) [[ "$G1" == " " ]] && G1="$turn" || ocupado=true ;;
+
         2) [[ "$G2" == " " ]] && G2="$turn" || ocupado=true ;;
         3) [[ "$G3" == " " ]] && G3="$turn" || ocupado=true ;;
         4) [[ "$G4" == " " ]] && G4="$turn" || ocupado=true ;;
@@ -148,6 +158,7 @@ turn() {
     limpiar_pantalla
     echo
     echo "Es el turno de $turn"
+    
     pausa 1
 }
 
