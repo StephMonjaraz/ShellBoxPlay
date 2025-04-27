@@ -1,6 +1,7 @@
 # 🖥️ ShellBoxPlay
 
 **ShellBoxPlay** es una terminal interactiva en Bash con autenticación real, comandos personalizados, juegos integrados y reproductor MP3 con interfaz gráfica. Modular y extensible, ideal para usuarios que desean crear su propia shell funcional dentro de un entorno GNU/Linux.
+Está diseñado para el estudio y la aplicación práctica de comandos en Bash puro, reforzando habilidades de programación en entornos de consola.
 
 
 ---
@@ -57,8 +58,7 @@ chmod +x *.sh comandos/*.sh juegos/*.sh reproductor/*.sh
 
 **Desarrollado por:**
 
-- Jessica Stephanie Garcia Monjaraz.  
-- Javier Eduardo Santos Zavala.
+- Jessica Stephanie Garcia Monjaraz. 
 
 ---
 
