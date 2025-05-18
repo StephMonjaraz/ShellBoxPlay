@@ -1,5 +1,96 @@
 # 🖥️ ShellBoxPlay
 
+## 🌐 English Version
+
+**ShellBoxPlay** is an interactive Bash-based terminal with real user authentication, custom commands, built-in games, and an MP3 player with a graphical interface. Modular and extensible, it's ideal for users seeking to build their own functional shell environment within GNU/Linux systems.
+
+Designed as a practical exercise in pure Bash scripting, it strengthens terminal development and scripting skills.
+
+---
+
+## 🚀 Main Features
+
+- 🔐 Login using real host system users.
+- 💻 Custom command-line interface displaying user and directory info.
+- ⚙️ Built-in Bash commands:
+  - `ayuda` – list of available commands
+  - `infosis` – system info (RAM, architecture, version)
+  - `fecha` – current date and time without using `date`
+  - `buscar` – file search in specific directories
+  - `creditos` – developer information
+  - `salir` – secure shell exit (blocks Ctrl+C and Ctrl+Z)
+- 🎮 Console games (Tic-Tac-Toe and Hangman).
+- 🎵 MP3 player with graphical interface using `mpg123`.
+
+---
+
+## 🧩 Project Structure
+
+The project is modular. Each function is implemented in a separate `.sh` script, organized by purpose (commands, games, player), allowing for maintainability and reusability.
+
+---
+
+## 📥 Installation
+
+```bash
+git clone https://github.com/StephMonjaraz/ShellBoxPlay.git
+cd ShellBoxPlay
+chmod +x *.sh comandos/*.sh juegos/*.sh reproductor/*.sh
+./main.sh
+```
+
+> ⚠️ Requirements:
+
+> GNU/Linux distribution (preferably Debian-based)
+
+> Permission to execute Bash scripts
+
+> mpg123 installed (you’ll be prompted to install it if missing)
+
+📝 **Note:** The shell can only be exited using the salir command. Ctrl+C and Ctrl+Z are blocked to prevent forced termination.
+
+---
+
+## 🛠️ Technical Notes
+-Automatically checks for mpg123 and prompts installation.
+
+-salir is the only valid exit method.
+
+- Commands like date and neofetch were manually recreated in Bash.
+---
+
+## 🧠 Credits
+** Developed by: **
+
+-Jessica Stephanie Garcia Monjaraz
+
+---
+
+## 📄 License
+
+MIT License  
+© 2025 Jessica Stephanie Garcia Monjaraz
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+**THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.**      
+
+---
+
+
+
+
+
+
+<br><br>
+
+
+
+
+# 🖥️ ShellBoxPlay
+
 **ShellBoxPlay** es una terminal interactiva en Bash con autenticación real, comandos personalizados, juegos integrados y reproductor MP3 con interfaz gráfica. Modular y extensible, ideal para usuarios que desean crear su propia shell funcional dentro de un entorno GNU/Linux.
 Está diseñado para el estudio y la aplicación práctica de comandos en Bash puro, reforzando habilidades de programación en entornos de consola.
 
