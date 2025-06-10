@@ -2,7 +2,7 @@
 # Reproductor MP3 mejorado
 
 # Configuración
-MUSIC_DIR="$HOME/Música" #Carpeta donde estan las canciones en formato mp3
+MUSIC_DIR="$HOME/Music" #Carpeta donde estan las canciones en formato mp3
 CURRENT_SONG=""  #Almacena la canción actual
 PLAYER_PID=0  #Almacena ID del reproductor, para poder detenerlo
 CURRENT_INDEX=-1 #Indice de la cancion actual
