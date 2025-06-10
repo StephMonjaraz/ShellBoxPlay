@@ -94,5 +94,4 @@ sleep 0.03
 sleep 2
 clear
 
-# 👇 SOLO AQUÍ haces un salto real para acomodar tu prompt
 echo ""
